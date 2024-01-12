@@ -13,6 +13,7 @@ import TodoItemView from '../TodoItemView/TodoItemView';
 import TodoForm from '../TodoForm/TodoForm';
 import { todoActions } from '../../features/todoSlice/todoSlice';
 import { TTodoItem, TodoStatus } from '../../share/types/todo';
+import { useNavigate } from 'react-router-dom';
 
 type TodoItemProps = TTodoItem & {
     nextStatus?: TodoStatus;
@@ -26,6 +27,7 @@ const TodoItem = (todo: TodoItemProps) => {
 
     const dispatch = useDispatch();
     const getPreviousStatus = (currentStatus: TodoStatus) => {
+        console.log('test');
         switch (currentStatus) {
             case 'progress':
                 return 'waiting';
@@ -35,6 +37,8 @@ const TodoItem = (todo: TodoItemProps) => {
                 return null;
         }
     };
+
+    const navigate = useNavigate();
 
     const handelDeleteItem = () => {
         dispatch(todoActions.deleteItem({ id: id, curStatus: status }));
@@ -92,11 +96,13 @@ const TodoItem = (todo: TodoItemProps) => {
     };
     return (
         <>
-            <div className="todo_item">
-                <div
-                    style={{ cursor: 'pointer' }}
-                    onClick={() => setOpenView(!openView)}
-                >
+            <div
+                className="todo_item"
+                // onClick={() => setOpenView(!openView)}
+                onClick={() => navigate('/task')}
+                style={{ cursor: 'pointer' }}
+            >
+                <div>
                     <h2 className="todo_item_title">{title}</h2>
                     <p className="status_chip">{status}</p>
                     <span className="todo_item_date">{date}</span>
@@ -108,7 +114,7 @@ const TodoItem = (todo: TodoItemProps) => {
                     >
                         <FontAwesomeIcon
                             icon={faTrash}
-                            color="#fff"
+                            color="#856fd7"
                             fontSize={20}
                             width={50}
                         />
@@ -120,7 +126,7 @@ const TodoItem = (todo: TodoItemProps) => {
                         >
                             <FontAwesomeIcon
                                 icon={faArrowLeft}
-                                color="#fff"
+                                color="#856fd7"
                                 fontSize={20}
                                 width={50}
                             />
@@ -133,7 +139,7 @@ const TodoItem = (todo: TodoItemProps) => {
                         >
                             <FontAwesomeIcon
                                 icon={faPen}
-                                color="#fff"
+                                color="#856fd7"
                                 fontSize={20}
                                 width={50}
                             />
@@ -146,7 +152,7 @@ const TodoItem = (todo: TodoItemProps) => {
                         >
                             <FontAwesomeIcon
                                 icon={faCheck}
-                                color="#fff"
+                                color="#856fd7"
                                 fontSize={23}
                                 width={50}
                             />
@@ -157,7 +163,6 @@ const TodoItem = (todo: TodoItemProps) => {
             <ModalWindow
                 open={openView}
                 handleOpen={() => setOpenView(!openView)}
-                title="Просмотр информации задачи"
             >
                 <TodoItemView {...todo} />
             </ModalWindow>

@@ -5,8 +5,8 @@ const TodoItemView = ({ id, title, description, status }: TTodoItem) => {
         <div>
             <h1>Заголовок: {title}</h1>
             <p style={{ margin: '10px 0' }}>Описание: {description}</p>
-            <div style={{ display: 'flex' }}>
-                <p style={{ marginRight: '5px' }}>Статус: </p>
+            <div style={{ display: 'flex', alignItems: 'center' }}>
+                <p style={{ marginRight: '20px' }}>Статус: </p>
                 <p className="status_chip">{status}</p>
             </div>
         </div>

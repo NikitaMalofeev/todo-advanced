@@ -43,7 +43,7 @@ const TodoForm = ({
                         setTitle(event.target.value);
                     }}
                     required
-                    placeholder="Добавьте описание"
+                    placeholder="Добавьте заголовок"
                 />
             </fieldset>
             <fieldset className="input_fieldset">
@@ -67,11 +67,13 @@ const TodoForm = ({
                     placeholder="Добавьте описание"
                 />
             </fieldset>
-            <span>Текущая дата {date}</span>
-            <input
-                type="submit"
-                className="default_button"
-            />
+            <div className="task_footer">
+                <span className="task_date">Текущая дата {date}</span>
+                <input
+                    type="submit"
+                    className="default_button"
+                />
+            </div>
         </form>
     );
 };
