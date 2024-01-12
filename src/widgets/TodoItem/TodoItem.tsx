@@ -7,13 +7,14 @@ import {
     faPen,
     faArrowLeft,
 } from '@fortawesome/free-solid-svg-icons';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import ModalWindow from '../ModalWindow/ModalWindow';
 import TodoItemView from '../TodoItemView/TodoItemView';
 import TodoForm from '../TodoForm/TodoForm';
 import { todoActions } from '../../features/todoSlice/todoSlice';
 import { TTodoItem, TodoStatus } from '../../share/types/todo';
 import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 type TodoItemProps = TTodoItem & {
     nextStatus?: TodoStatus;
@@ -25,9 +26,10 @@ const TodoItem = (todo: TodoItemProps) => {
     const { id, title, description, status, nextStatus, prevStatus, date } =
         todo;
 
+    const todoRef = useRef<TTodoItem>({ id, title, description, status, date });
+
     const dispatch = useDispatch();
     const getPreviousStatus = (currentStatus: TodoStatus) => {
-        console.log('test');
         switch (currentStatus) {
             case 'progress':
                 return 'waiting';
@@ -39,6 +41,12 @@ const TodoItem = (todo: TodoItemProps) => {
     };
 
     const navigate = useNavigate();
+    const handleTaskClick = () => {
+        // Переход c qury параметрами
+        navigate(
+            `/task?id=${id}&title=${title}&description=${description}&status=${status}&date=${date}`
+        );
+    };
 
     const handelDeleteItem = () => {
         dispatch(todoActions.deleteItem({ id: id, curStatus: status }));
@@ -94,20 +102,27 @@ const TodoItem = (todo: TodoItemProps) => {
         dispatch(todoActions.editItem(curTodo));
         setOpenEdit(!openEdit);
     };
+
+    const onControllerClick = (e: React.MouseEvent) => {
+        e.stopPropagation();
+    };
     return (
         <>
             <div
                 className="todo_item"
-                // onClick={() => setOpenView(!openView)}
-                onClick={() => navigate('/task')}
                 style={{ cursor: 'pointer' }}
+                onClick={handleTaskClick}
+                // onClick={() => setOpenView(!openView)}
             >
                 <div>
                     <h2 className="todo_item_title">{title}</h2>
                     <p className="status_chip">{status}</p>
                     <span className="todo_item_date">{date}</span>
                 </div>
-                <div className="todo_item_button_container">
+                <div
+                    className="todo_item_button_container"
+                    onClick={onControllerClick}
+                >
                     <button
                         className={`todo_item_button todo_item_button_delete`}
                         onClick={handelDeleteItem}

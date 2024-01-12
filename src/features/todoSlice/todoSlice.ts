@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSelector, createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { TTodoItem, TodoStatus } from '../../share/types/todo';
 
@@ -32,18 +32,16 @@ export const todoSlice = createSlice({
             action: PayloadAction<{
                 curItem: TTodoItem;
                 nextStatus: TodoStatus;
-                prevStatus: TodoStatus; // Добавляем параметр для предыдущего статуса
+                prevStatus: TodoStatus;
             }>
         ) => {
             const { curItem, nextStatus, prevStatus } = action.payload;
 
-            // Удаляем текущий элемент из массива в предыдущем статусе
             const prevList = state[prevStatus].filter(
                 (elem) => elem.id !== curItem.id
             );
             state[prevStatus] = prevList;
 
-            // Обновляем статус элемента и добавляем его в массив следующего статуса
             const newItem = {
                 ...curItem,
                 status: nextStatus,
@@ -61,9 +59,17 @@ export const todoSlice = createSlice({
             const newList = state[curStatus].filter((elem) => elem.id !== id);
             state[curStatus] = newList;
         },
+        // getTodoById: (state, action: PayloadAction<string>) => {
+        //     const idToFind = action.payload;
+        //     const allTasks = [
+        //         ...state.waiting,
+        //         ...state.progress,
+        //         ...state.finished,
+        //     ];
+        //     return allTasks.find((task) => task.id === idToFind);
+        // },
     },
 });
-// export const { addItem, updateStatusItem, deleteItem, editItem } =
-//     todoSlice.actions;
+
 export const { actions: todoActions } = todoSlice;
 export default todoSlice.reducer;
