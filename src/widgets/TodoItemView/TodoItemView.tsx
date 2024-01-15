@@ -1,6 +1,6 @@
 import { TTodoItem } from '../../share/types/todo';
 
-const TodoItemView = ({ id, title, description, status }: TTodoItem) => {
+const TodoItemView = ({ title, description, status }: TTodoItem) => {
     return (
         <div>
             <h1>Заголовок: {title}</h1>

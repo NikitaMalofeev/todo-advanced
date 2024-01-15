@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '@reduxjs/toolkit/query';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { TTodoItem } from '../../../share/types/todo';
 import { todoActions } from '../../../features/todoSlice/todoSlice';
 import KanbanSection from '../../../widgets/KanbanSection/KanbanSection';
@@ -9,7 +9,7 @@ import TodoForm from '../../../widgets/TodoForm/TodoForm';
 
 function MainPage() {
     const { waiting, progress, finished } = useSelector(
-        (state: RootState) => state.todo
+        (state: any) => state.todo
     );
     const [option, setOption] = useState('all');
     const dispatch = useDispatch();

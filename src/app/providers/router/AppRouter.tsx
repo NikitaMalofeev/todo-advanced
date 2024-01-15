@@ -1,7 +1,6 @@
-import React, { Suspense } from 'react';
+import { Suspense } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { Loader } from '../../../share/ui/Loader/Loader';
-import { App } from '../../App';
 import { MainPage } from '../../../pages/MainPage/ui/MainPage';
 import { AsyncTaskPage } from '../../../pages/TaskPage/ui/AsyncTaskPage';
 

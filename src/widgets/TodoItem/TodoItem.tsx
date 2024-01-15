@@ -1,5 +1,4 @@
 import { useDispatch } from 'react-redux';
-
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
     faTrash,
@@ -7,14 +6,13 @@ import {
     faPen,
     faArrowLeft,
 } from '@fortawesome/free-solid-svg-icons';
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 import ModalWindow from '../ModalWindow/ModalWindow';
 import TodoItemView from '../TodoItemView/TodoItemView';
 import TodoForm from '../TodoForm/TodoForm';
 import { todoActions } from '../../features/todoSlice/todoSlice';
 import { TTodoItem, TodoStatus } from '../../share/types/todo';
 import { useNavigate } from 'react-router-dom';
-import { Link } from 'react-router-dom';
 
 type TodoItemProps = TTodoItem & {
     nextStatus?: TodoStatus;
@@ -25,8 +23,6 @@ const TodoItem = (todo: TodoItemProps) => {
     const [openEdit, setOpenEdit] = useState(false);
     const { id, title, description, status, nextStatus, prevStatus, date } =
         todo;
-
-    const todoRef = useRef<TTodoItem>({ id, title, description, status, date });
 
     const dispatch = useDispatch();
     const getPreviousStatus = (currentStatus: TodoStatus) => {

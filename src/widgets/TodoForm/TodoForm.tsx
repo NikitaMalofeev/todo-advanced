@@ -1,10 +1,9 @@
-import { useEffect, useState } from 'react';
-import styles from './styles.module.scss';
+import { useState } from 'react';
 
 type TodoFormProps = {
     onConfirm: (title: string, desc: string, date: string) => void;
-    defaultTitle: string;
-    defaultDesc: string;
+    defaultTitle?: string;
+    defaultDesc?: string;
 };
 const TodoForm = ({
     onConfirm,
